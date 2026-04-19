@@ -1,0 +1,49 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <climits>
+#include <algorithm>
+#include <vector>
+
+typedef long long int64;
+
+template<typename T>
+void readInt(T& x) {
+    static bool f;
+    x = 0;f = false;
+    char c = getchar();
+    for(;c<'0' || c>'9';c=getchar())if(c=='-')f=!f;
+    for(;'0'<=c&&c<='9';c=getchar()) {
+        x = x * 10 + c - '0';
+    }
+    if(f)x = -x;
+}
+template<typename T, typename ...Args>
+void readInt(T& x, Args&... args) {
+    readInt(x);
+    readInt(args...);
+}
+
+int64 gcd(int64 a, int64 b) {
+    if(b==0) return a;
+    return gcd(b, a%b);
+}
+
+int main() {
+    int T;readInt(T);
+    for(;T;--T) {
+        int64 a, b;readInt(a, b);
+        int64 k = gcd(a, b);
+        a /= k;
+        b /= k;
+        int64 ans;
+        if(a==1) {
+            ans = b * b;
+        } else {
+            ans = a * b;
+        }
+        printf("%lld\n", ans * k);
+    } 
+
+    return 0;
+}
