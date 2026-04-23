@@ -34,48 +34,41 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-const i64 MOD = 998244353;
-
-i64 pow2[200010];
-
-i64 sum(int l, int r, veci64 &dps) {
-    if(l <= 0)
-        return dps[r];
-    return (dps[r] - dps[l-1] + MOD) % MOD;
-}
-
 void solve() {
     itn n, m;readInt(n, m);
     --n;
     veci64 dps(n+1);
     std::vector<veci> ls(n+1);
+    std::vector<std::pair<int, int> > a;
     for(int i=1;i<=m;++i) {
         int x, y;readInt(x, y);
         --y;
-        int len = y - x + 1;
-        printf("(%d %d)\n", y, len);
-        ls[y].push_back(len);
+        a.push_back({x, y});
     }
-    dps[0] = 1;
-    i64 ans = 0;
-    for(int i=1;i<=n;++i) {
-        i64 cur = 0;
-        std::sort(ls[i].begin(), ls[i].end());
-        for(int j=0;j<(int)ls[i].size();++j) {
-            int len = ls[i][j];
-            cur = (cur + pow2[j] * sum(i-len, i-1, dps)) % MOD;
+    int tar = (1<<m);
+    int ans = 0;
+    std::vector<bool> vis(100);
+    for(int s=0;s<tar;++s) {
+        for(int i=1;i<=n;++i)
+            vis[i] = 0;
+        for(int t=0;t<m;++t)
+            if((s>>t)&1) {
+                for(int i=a[t].first;i<=a[t].second;++i)
+                    vis[i] = 1;
+            }
+        bool all1 = true;
+        for(int i=1;i<=n;++i) {
+            if(!vis[i]) {
+                all1 = false;
+                break;
+            }
         }
-        dps[i] = (dps[i-1] + cur) % MOD;
-        printf("dp[%d]=%lld\n", i, cur);
-        ans = cur;
+        if(all1)++ans;
     }
-    printf("%lld\n", ans);
+    printf("%d\n", ans);
 }
 
 int main() {
-    pow2[0] = 1;
-    for(int i=1;i<200010;++i)
-        pow2[i] = (pow2[i-1] * 2) % MOD;
     // int T;readInt(T);
     // while(T--) {
         solve();

@@ -51,7 +51,7 @@ void solve() {
     }
     for(int i=n;i<n*5;++i)
         p[i] = p[i-n];
-    int a = k;
+    int a = k+1;
     i64 tmp = 0, ans = 0;
     for(int b=0;b<n;++b) {
         int c = b + k;
@@ -63,6 +63,8 @@ void solve() {
             tmp -= oupdt(p[b-1], p[b]);
             tmp += oupdt(p[c-1], p[c]);
         }
+        if(a%n == c%n)
+            ++a;
         while((a+1)%n!=b && oupdt(p[c], p[a]) + oupdt(p[a], p[b]) < oupdt(p[c], p[a+1]) + oupdt(p[a+1], p[b]))
             ++a;
         ans = std::max(ans, tmp + oupdt(p[c], p[a]) + oupdt(p[a], p[b]));
