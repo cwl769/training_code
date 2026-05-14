@@ -135,6 +135,7 @@ void solve() {
     Segtree dps(0, n);
     dps.change(0, 1);
     i64 ans = 0;
+    int cnt = 0;
     for(int i=1;i<=n;++i) {
         i64 cur = 0;
         std::sort(ls[i].begin(), ls[i].end());
