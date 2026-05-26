@@ -1,0 +1,69 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <climits>
+#include <cmath>
+#include <algorithm>
+#include <functional>
+#include <vector>
+#include <set>
+#include <map>
+
+#define itn int
+typedef long long int64;
+typedef long long i64;
+typedef std::vector<int> veci;
+typedef std::vector<i64> veci64;
+
+#define debug(...) fprintf(stderr, __VA_ARGS__)
+
+template<typename T>
+void readInt(T& x) {
+    static bool f;
+    x = 0;f = false;
+    char c = getchar();
+    for(;c<'0' || c>'9';c=getchar())if(c=='-')f=!f;
+    for(;'0'<=c&&c<='9';c=getchar()) {
+        x = x * 10 + c - '0';
+    }
+    if(f)x = -x;
+}
+template<typename T, typename ...Args>
+void readInt(T& x, Args&... args) {
+    readInt(x);
+    readInt(args...);
+}
+
+void solve() {
+    int n;readInt(n);
+    veci64 a(n+2);
+    for(int i=1;i<=n;++i)
+        readInt(a[i]);
+    a[n+1] = -1;
+    int last = 0;
+    veci ans;
+    for(int i=1;i<=n;++i) {
+        if(i == n || a[i] < 0)
+            last = i;
+        else {
+            if(a[i+1] < 0) {
+                ans.push_back(i);
+                if(last)
+                    ans.push_back(last);
+            }
+        }
+    }
+    printf("%d\n", (int)ans.size());
+    for(auto x:ans)
+        printf("%d ", x);
+    printf("\n");
+}
+
+int main() {
+    int T;readInt(T);
+    while(T--) {
+        solve();
+    }
+
+    return 0;
+}
