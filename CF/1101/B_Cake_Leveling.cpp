@@ -34,18 +34,21 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-typedef std::vector<veci> Graph;
-
 void solve() {
     int n;readInt(n);
-    Graph g(n+2);
-    for(int i=1;i<n;++i) {
-        int x, y;readInt(x, y);
-        g[x].push_back(y);
-        g[y].push_back(x);
-    }
-    std::set<int> leaf;
+    veci64 a(n+2);
+    for(int i=1;i<=n;++i)
+        readInt(a[i]);
 
+    printf("%lld ", a[1]);
+    i64 sum = a[1];
+    i64 ans = a[1];
+    for(int i=2;i<=n;++i) {
+        ans = std::min(ans, (sum + a[i]) / i);
+        printf("%lld ", ans);
+        sum += a[i];
+    }
+    printf("\n");
 }
 
 int main() {

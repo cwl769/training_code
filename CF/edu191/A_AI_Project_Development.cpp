@@ -34,18 +34,26 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-typedef std::vector<veci> Graph;
+bool check(i64 m ,i64 n, i64 x, i64 y, i64 z) {
+    if(x * m + y * m >= n)
+        return true;
+    if(m >= z && x * m + 10ll * y * (m - z) >= n)
+        return true;
+    return false;
+}
 
 void solve() {
-    int n;readInt(n);
-    Graph g(n+2);
-    for(int i=1;i<n;++i) {
-        int x, y;readInt(x, y);
-        g[x].push_back(y);
-        g[y].push_back(x);
+    int n, x, y, z;readInt(n, x, y, z);
+    int l = 1, r = 100000;
+    while(l < r) {
+        int mid = ((l+r)>>1);
+        if(check(mid, n, x, y, z)) {
+            r = mid;
+        } else {
+            l = mid + 1;
+        }
     }
-    std::set<int> leaf;
-
+    printf("%d\n", l);
 }
 
 int main() {

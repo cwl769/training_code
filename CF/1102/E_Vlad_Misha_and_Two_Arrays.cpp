@@ -34,18 +34,9 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-typedef std::vector<veci> Graph;
-
 void solve() {
-    int n;readInt(n);
-    Graph g(n+2);
-    for(int i=1;i<n;++i) {
-        int x, y;readInt(x, y);
-        g[x].push_back(y);
-        g[y].push_back(x);
-    }
-    std::set<int> leaf;
 
+    
 }
 
 int main() {
