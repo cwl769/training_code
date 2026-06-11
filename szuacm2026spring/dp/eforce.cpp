@@ -69,6 +69,15 @@ bool check(char *str, int n, int k) {
         } else if( str[i] == ')') {
             if(stack.empty())
                 return false;
+            int l = stack.top()+1;
+            int r = i-1;
+            if(str[l]=='*'&&str[r]=='*') {
+                if(r - l + 1 > k)
+                    return false;
+                for(int j=l;j<=r;++j)
+                    if(str[j]!='*')
+                        return false;
+            }
             stack.pop();
         }
     }

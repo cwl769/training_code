@@ -59,6 +59,8 @@ void solve() {
                     i64 tmp = f[l+1][t-1] + g[0][l+1][t-1] + g[1][l+1][t-1] + g[2][l+1][t-1];
                     tmp %= MOD;
                     tmp = tmp * ((f[t+1][r] + g[0][t+1][r]) % MOD) % MOD;
+                    // if(l==1&&r==n)
+                    //     printf("t=%d tmp=%lld\n", t, tmp);
                     f[l][r] = (f[l][r] + tmp) % MOD;
                 }
             }
@@ -70,7 +72,7 @@ void solve() {
                     break;
                 }
             }
-            for(int t=r-1;t>=t-K&&t>=l;--t) {
+            for(int t=r-1;t>=r-K&&t>=l;--t) {
                 //[l, t], [t+1, r];
                 if(can(t+1, '*')) {
                     g[1][l][r] = (g[1][l][r] + f[l][t]) % MOD;
@@ -91,30 +93,32 @@ void solve() {
             }
         }
     }
-    for(int l=1;l<=n;++l) {
-        for(int r=1;r<=n;++r)
-            printf("%2lld ", f[l][r]);
-        printf("\n");
-    }
-    printf("---------------\n");
-    for(int l=1;l<=n;++l) {
-        for(int r=1;r<=n;++r)
-            printf("%2lld ", g[0][l][r]);
-        printf("\n");
-    }
-    printf("---------------\n");
-    for(int l=1;l<=n;++l) {
-        for(int r=1;r<=n;++r)
-            printf("%2lld ", g[1][l][r]);
-        printf("\n");
-    }
-    printf("---------------\n");
-    for(int l=1;l<=n;++l) {
-        for(int r=1;r<=n;++r)
-            printf("%2lld ", g[2][l][r]);
-        printf("\n");
-    }
-    printf("---------------\n");
+
+
+    // for(int l=1;l<=n;++l) {
+    //     for(int r=1;r<=n;++r)
+    //         printf("%2lld ", f[l][r]);
+    //     printf("\n");
+    // }
+    // printf("---------------\n");
+    // for(int l=1;l<=n;++l) {
+    //     for(int r=1;r<=n;++r)
+    //         printf("%2lld ", g[0][l][r]);
+    //     printf("\n");
+    // }
+    // printf("---------------\n");
+    // for(int l=1;l<=n;++l) {
+    //     for(int r=1;r<=n;++r)
+    //         printf("%2lld ", g[1][l][r]);
+    //     printf("\n");
+    // }
+    // printf("---------------\n");
+    // for(int l=1;l<=n;++l) {
+    //     for(int r=1;r<=n;++r)
+    //         printf("%2lld ", g[2][l][r]);
+    //     printf("\n");
+    // }
+    // printf("---------------\n");
     printf("%lld\n", f[1][n]);
 }
 
