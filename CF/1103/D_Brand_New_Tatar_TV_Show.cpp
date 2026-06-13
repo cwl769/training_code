@@ -34,38 +34,41 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-int next(int x, int n) {
-    return (x % n) + 1;
-}
-
-int prev(int x, int n) {
-    return (x == 1) ? n : (x - 1);
-}
-
 void solve() {
-    int n;readInt(n);
-    veci h(n+2);
+    int n, k;readInt(n, k);
+    veci a(n+2);
     for(int i=1;i<=n;++i)
-        readInt(h[i]);
-    for(int st=1;st<=n;++st) {
-        std::vector<int> ans(n+2, INT_MAX);
-        ans[st] = 0;
-        int mx = h[st];
-        for(int i=next(st, n);i!=st;i=next(i, n)) {
-            ans[i] = std::min(ans[i], mx);
-            mx = std::max(mx, h[i]);
+        readInt(a[i]);
+    std::sort(a.begin()+1, a.begin()+n+1);
+    std::vector<veci> game(n+2);
+    int tot = 1;
+    game[tot].emplace_back(a[1]);
+    for(int i=2;i<=n;++i) {
+        if(a[i] - a[i-1] > k) {
+            ++tot;
         }
-        mx = h[prev(st, n)];
-        for(int i=prev(st, n);i!=st;i=prev(i, n)) {
-            ans[i] = std::min(ans[i], mx);
-            mx = std::max(mx, h[prev(i, n)]);
-        }
-        i64 curans = 0;
-        for(int i=1;i<=n;++i)
-            curans += ans[i];
-        printf("%lld ", curans);
+        game[tot].emplace_back(a[i]);
     }
-    printf("\n");
+    for(int i=1;i<=tot;++i) {
+        int mx = 0;
+        for(auto x:game[i])
+            mx = std::max(x, mx);
+        int cntmx = 0;
+        for(auto x:game[i]) {
+            if(x == mx)
+                ++cntmx;
+        }
+        if(cntmx & 1) {
+            if(cntmx != (int)game[i].size()) {
+                printf("YES\n");
+                return;
+            }
+        } else {
+            printf("YES\n");
+            return;
+        }
+    }
+    printf("NO\n");
 }
 
 int main() {

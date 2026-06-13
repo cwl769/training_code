@@ -34,33 +34,44 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-void swap(int x, int y, veci& a, std::vector<std::set<int> > &pos) {
-    int cx = a[x];
-    int cy = a[y];
-    pos[cx].erase(x);
-    pos[cy].erase(y);
-    pos[cx].insert(y);
-    pos[cy].insert(x);
-}
-
-int cnt_diff(int tot, std::vector<std::set<int> > &pos, veci& cnt) {
-
-    int cnt_diff = 0;
-    for(int col = 1;col <= tot; ++col) {
-        std::set<int> &cur = pos[col];
-        if(cnt[col] == *cur.rbegin() - *cur.begin() + 1) {
-            continue;
-        }
-        ++cnt_diff;
+void swap(int x, int y, veci& a, int &cnt, const int n) {
+    if(x == y) {
+        return;
     }
-    return cnt_diff;
+    if(x > y)
+        std::swap(x, y);
+    // x < y
+    // printf("swap(%d, %d)\n", x, y);
+    if(x > 1 && a[x] != a[x-1]) {--cnt;}
+    if(y < n && a[y] != a[y+1]) {--cnt;}
+    if(x > 1 && a[y] != a[x-1]) {++cnt;}
+    if(y < n && a[x] != a[y+1]) {++cnt;}
+    if(x + 1 == y) {
+        std::swap(a[x], a[y]);
+        // for(int i=1;i<=n;++i)
+        //     printf("%d ", a[i]);
+        // printf("|%d\n", cnt);
+        return;
+    }
+    if(a[x] != a[x+1]) {--cnt;}
+    if(a[y] != a[y-1]) {--cnt;}
+    if(a[y] != a[x+1]) {++cnt;}
+    if(a[x] != a[y-1]) {++cnt;}
+    std::swap(a[x], a[y]);
+    // for(int i=1;i<=n;++i)
+    //     printf("%d ", a[i]);
+    // printf("|%d\n", cnt);
 }
 
 void solve() {
     int n;readInt(n);
-    std::vector<int> a(n+2);
-    for(int i=1;i<=n;++i) {
+    veci a(n+2);
+    for(int i=1;i<=n;++i)
         readInt(a[i]);
+    int cnt = 0;
+    for(int i=2;i<=n;++i) {
+        if(a[i] != a[i-1])
+            ++cnt;
     }
     std::map<int, int> map;
     for(int i=1;i<=n;++i) {
@@ -70,65 +81,66 @@ void solve() {
     for(auto &pr:map) {
         pr.second = ++tot;
     }
-    for(int i=1;i<=n;++i) {
-        a[i] = map[a[i]];
-    }
-    std::vector<std::set<int> > pos(tot+2);
-    veci cnt(tot+2);
-    for(int i=1;i<=n;++i) {
-        pos[a[i]].insert(i);
-        ++cnt[a[i]];
-    }
-
-    int cnt_init = cnt_diff(tot, pos, cnt);
-    if(cnt_init > 2) {
-        printf("NO\n");
-        return;
-    }
-    if(cnt_init == 0) {
+    if(tot - 1 == cnt) {
         printf("YES\n");
         return;
     }
-    
-    for(int col = 1;col <= tot; ++col) {
-        std::set<int> &cur = pos[col];
-        if(cnt[col] == *cur.rbegin() - *cur.begin() + 1) {
+    for(int i=1;i<=n;++i) {
+        a[i] = map[a[i]];
+    }
+    std::vector<std::vector<int> > pos(tot+2);
+    for(int i=1;i<=n;++i)
+        pos[a[i]].emplace_back(i);
+    for(int c=1;c<=tot;++c) {
+        if(pos[c].size() == 1u)
             continue;
+        int first, second, sp;
+        first = pos[c][0];
+        second = pos[c][1];
+        sp = first;
+        swap(first, second-1, a, cnt, n);
+        if(cnt == tot - 1) {
+            printf("YES\n");
+            return;
         }
-        int tmp = 0;
-        int beg = *cur.begin();
-        for(auto it=++cur.begin();it!=cur.end();++it) {
-            int x = *it;
-            if(cur.find(x+1)==cur.end()) {
-                tmp = x+1;
+        swap(first, second-1, a, cnt, n);
+        for(int i=1;i<(int)pos[c].size();++i) {
+            if(i == pos[c].size() - 1 || pos[c][i]+1 != pos[c][i+1]) {
+                sp = pos[c][i] + 1;
                 break;
             }
         }
-        if(tmp > 0 && tmp <= n) {
-            swap(beg, tmp, a, pos);
-            if(cnt_diff(tot, pos, cnt) == 0) {
+        if(sp <= n) {
+            swap(first, sp, a, cnt, n);
+            if(cnt == tot - 1) {
                 printf("YES\n");
                 return;
             }
-            swap(beg, tmp, a, pos);
+            swap(first, sp, a, cnt, n);
         }
-
-        tmp = 0;
-        beg = *cur.rbegin();
-        for(auto it=++cur.rbegin();it!=cur.rend();++it) {
-            int x = *it;
-            if(cur.find(x+1)==cur.end()) {
-                tmp = x+1;
+        
+        first = pos[c][pos[c].size()-1];
+        second = pos[c][pos[c].size()-2];
+        sp = first;
+        swap(first, second+1, a, cnt, n);
+        if(cnt == tot - 1) {
+            printf("YES\n");
+            return;
+        }
+        swap(first, second+1, a, cnt, n);
+        for(int i=pos[c].size()-2;i>=0;--i) {
+            if(i == 0 || pos[c][i]-1 != pos[c][i-1]) {
+                sp = pos[c][i] - 1;
                 break;
             }
         }
-        if(tmp > 0 && tmp <= n) {
-            swap(beg, tmp, a, pos);
-            if(cnt_diff(tot, pos, cnt) == 0) {
+        if(sp >= 1) {
+            swap(first, sp, a, cnt, n);
+            if(cnt == tot - 1) {
                 printf("YES\n");
                 return;
             }
-            swap(beg, tmp, a, pos);
+            swap(first, sp, a, cnt, n);
         }
     }
     printf("NO\n");

@@ -34,38 +34,29 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-int next(int x, int n) {
-    return (x % n) + 1;
-}
-
-int prev(int x, int n) {
-    return (x == 1) ? n : (x - 1);
+int func(int a, int b, int x) {
+    int ans = b - a;
+    int tmp = 0;
+    while(b > a) {
+        ++tmp;
+        b /= x;
+        ans = std::min(ans, tmp + std::abs(a - b));   
+    }
+    return ans;
 }
 
 void solve() {
-    int n;readInt(n);
-    veci h(n+2);
-    for(int i=1;i<=n;++i)
-        readInt(h[i]);
-    for(int st=1;st<=n;++st) {
-        std::vector<int> ans(n+2, INT_MAX);
-        ans[st] = 0;
-        int mx = h[st];
-        for(int i=next(st, n);i!=st;i=next(i, n)) {
-            ans[i] = std::min(ans[i], mx);
-            mx = std::max(mx, h[i]);
-        }
-        mx = h[prev(st, n)];
-        for(int i=prev(st, n);i!=st;i=prev(i, n)) {
-            ans[i] = std::min(ans[i], mx);
-            mx = std::max(mx, h[prev(i, n)]);
-        }
-        i64 curans = 0;
-        for(int i=1;i<=n;++i)
-            curans += ans[i];
-        printf("%lld ", curans);
+    int a, b, x;readInt(a, b, x);
+    if(a > b)
+        std::swap(a, b);
+
+    int ans = INT_MAX;
+    for(int d=0;;a/=x,++d) {
+        ans = std::min(ans, d + func(a, b, x));
+        if(a == 0)
+            break;
     }
-    printf("\n");
+    printf("%d\n", ans);
 }
 
 int main() {
