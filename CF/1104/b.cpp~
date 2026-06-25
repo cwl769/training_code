@@ -1,0 +1,9 @@
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <climits>
+#include <algorithm>
+#include <vector>
+
+typedef long long i64;
+typedef std::vector<int> veci;
