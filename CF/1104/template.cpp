@@ -35,45 +35,8 @@ void readInt(T& x, Args&... args) {
 }
 
 void solve() {
-    int n;readInt(n);
-    std::vector<std::pair<i64, int> > a(n+2);
-    veci64 b(n+2);
-    for(int i=1;i<=n;++i) {
-	readInt(a[i].first);
-	a[i].second = i;
-    }
-    for(int i=1;i<=n;++i) {
-	readInt(b[i]);
-    }
-    std::set<int> set;
-    std::sort(a.begin()+1, a.begin()+n+1);
-    veci64 res(n+2);
-    int it=1;
-    for(int i=1;i<=n;++i) {
-	while(it<=n && a[it].first <= b[i]) {
-	    set.insert(a[it].second);
-	    ++it;
-	}
-	if(set.empty()) {
-	    printf("-1\n");
-	    return;
-	}
-	res[*set.begin()] = i;
-	set.erase(set.begin());
-    }
-    // for(int i=1;i<=n;++i)
-    // 	printf("%lld ", res[i]);
-    // printf("\n");
-    i64 ans = 0;
-    for(int rnd=1;rnd<=n;++rnd) {
-	for(int i=1;i<n;++i) {
-	    if(res[i] > res[i+1]) {
-		std::swap(res[i], res[i+1]);
-		++ans;
-	    }
-	}
-    }
-    printf("%lld\n", ans);
+
+    
 }
 
 int main() {
