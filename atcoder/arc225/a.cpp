@@ -34,25 +34,36 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-void solve() {
-<<<<<<< HEAD
-    int n;readInt(n);
-    veci 
-=======
+int map[512][512];
 
->>>>>>> 935d85f (2026-07-29 19:33)
-    
+int f[5] = {0, 2, 4, 1, 3};
+
+void solve() {
+    int n;
+    readInt(n);
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            readInt(map[i][j]);
+        }
+    }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            map[i][j] = f[map[i][j]];
+        }
+    }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            printf("%d ", map[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 int main() {
-    int T;readInt(T);
-    while(T--) {
+    //int T;readInt(T);
+    //while(T--) {
         solve();
-    }
+    //}
 
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 935d85f (2026-07-29 19:33)

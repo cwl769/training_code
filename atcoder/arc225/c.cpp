@@ -34,25 +34,44 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-void solve() {
-<<<<<<< HEAD
-    int n;readInt(n);
-    veci 
-=======
+struct Pool {
+    i64 prog, pity, need, luck;
+    Pool() : prog(), pity(), need(), luck() {
+        
+    }
+};
 
->>>>>>> 935d85f (2026-07-29 19:33)
+Pool p[400010];
+
+int fa[200010];
+int el[200010];
+
+void solve() {
+    int n, A, B, m, q;
+    readInt(n, A, B, m, q);
+    for (int i = 1; i <= n; ++i) {
+        readInt(fa[i], el[i]);
+    }
+    for (int i = 1; i <= A; ++i) {
+        readInt(p[i].need);
+    }
+    for (int i = 1; i <= B; ++i) {
+        readInt(p[A+i].need);
+    }
+    for (int i = 1; i <= A; ++i) {
+        readInt(p[i].luck);
+    }
+    for (int i = 1; i <= B; ++i) {
+        readInt(p[A+i].luck);
+    }
     
 }
 
 int main() {
-    int T;readInt(T);
-    while(T--) {
+    //int T;readInt(T);
+    //while(T--) {
         solve();
-    }
+    //}
 
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 935d85f (2026-07-29 19:33)

@@ -34,14 +34,23 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-void solve() {
-<<<<<<< HEAD
-    int n;readInt(n);
-    veci 
-=======
+i64 gcd(i64 a, i64 b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a%b);
+}
 
->>>>>>> 935d85f (2026-07-29 19:33)
-    
+void solve() {
+    i64 l, r, n;
+    readInt(l, r, n);
+    i64 ans = 0;
+    for (i64 i = l; i <= r; ++i) {
+        if (gcd(i, n) == 1)
+            ans += 1;
+        else
+            ans += 2;
+    }
+    printf("%lld\n", ans);
 }
 
 int main() {
@@ -51,8 +60,4 @@ int main() {
     }
 
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 935d85f (2026-07-29 19:33)

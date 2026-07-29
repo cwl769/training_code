@@ -35,12 +35,7 @@ void readInt(T& x, Args&... args) {
 }
 
 void solve() {
-<<<<<<< HEAD
-    int n;readInt(n);
-    veci 
-=======
 
->>>>>>> 935d85f (2026-07-29 19:33)
     
 }
 
@@ -51,8 +46,4 @@ int main() {
     }
 
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 935d85f (2026-07-29 19:33)

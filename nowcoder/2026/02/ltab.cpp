@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 2e5;
+int n, a[N + 5], b[N + 5], p[N + 5];
+int syn(int x) {
+    return x < 0 ? -x : x;
+}
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> n;
+    for (int i = 1; i <= n; i++) p[i] = i;
+    do {
+        int mx = 0, cnt = 0, tot = 0;
+        for (int i = 1; i <= n; i++)
+            for (int j = 1; j < i; j++)
+                if (p[j] > p[i]) cnt += 1;
+        for (int i = 1; i <= n; i++) a[i] = i;
+        do {
+            for (int i = 1; i <= n; i++)
+                b[i] = a[p[i]];
+            int cnt1 = 0, cnt2 = 0;
+            for (int i = 1; i <= n; i++)
+                for (int j = 1; j < i; j++) {
+                    if (a[j] > a[i]) cnt1 += 1;
+                    if (b[j] > b[i]) cnt2 += 1;
+                }
+            mx = max(mx, syn(cnt1 - cnt2));
+        } while (next_permutation(a + 1, a + n + 1));
+        for (int i = 1; i <= n; i++) a[i] = i;
+        do {
+            for (int i = 1; i <= n; i++)
+                b[i] = a[p[i]];
+            int cnt1 = 0, cnt2 = 0;
+            for (int i = 1; i <= n; i++)
+                for (int j = 1; j < i; j++) {
+                    if (a[j] > a[i]) cnt1 += 1;
+                    if (b[j] > b[i]) cnt2 += 1;
+                }
+            if (syn(cnt1 - cnt2) == mx) {
+                tot += 1;
+                for (int i = 1; i <= n; i++) cout << a[i] << ' ';
+                cout << '[' << cnt1 << ' ' << cnt2 << ']' << '\n';
+            }
+        } while (next_permutation(a + 1, a + n + 1));
+        for (int i = 1; i <= n; i++)
+            cout << p[i] << ' ';
+        cout << '\n';
+        cout << mx << ' ' << cnt << ' ' << tot << '\n';
+    } while (next_permutation(p + 1, p + n + 1));
+    return 0;
+}

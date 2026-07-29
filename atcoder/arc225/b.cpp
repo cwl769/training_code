@@ -34,25 +34,40 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-void solve() {
-<<<<<<< HEAD
-    int n;readInt(n);
-    veci 
-=======
+bool solve() {
+    int n;
+    readInt(n);
 
->>>>>>> 935d85f (2026-07-29 19:33)
-    
+    veci a(n + 2);
+    for (int i = 1; i <= n; ++i) {
+        readInt(a[i]);
+    }
+
+    int cnt = 0;
+
+    for (int i = 1; i <= n+1; ++i) {
+        if (a[i]) {
+            ++cnt;
+            if (cnt > 2)
+                return true;
+        } else {
+            if (cnt == 1 || cnt > 2)
+                return true;
+            cnt = 0;
+        }
+    }
+    return false;
 }
 
 int main() {
     int T;readInt(T);
     while(T--) {
-        solve();
+        if (solve()) {
+            printf("Alice\n");
+        } else {
+            printf("Bob\n");
+        }
     }
 
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 935d85f (2026-07-29 19:33)

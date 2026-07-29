@@ -34,14 +34,34 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-void solve() {
-<<<<<<< HEAD
-    int n;readInt(n);
-    veci 
-=======
+#include <queue>
 
->>>>>>> 935d85f (2026-07-29 19:33)
-    
+void solve() {
+    int n;
+    readInt(n);
+    std::queue<int> q;
+    if (n & 1) {
+        for (int i = (n + 3) / 2; i >= 3; --i) {
+            q.emplace(i);
+            if (i == (n + 3) / 2) {
+                q.emplace(2);
+            } else {
+                q.emplace(n + 3 - i);
+            }
+        }
+    } else {
+        for (int i = (n + 2) / 2; i < n; ++i) {
+            q.emplace(i);
+            q.emplace(n + 1 - i);
+        }
+        q.emplace(n);
+    }
+    printf("1 ");
+    while (q.size()) {
+        printf("%d ", q.front());
+        q.pop();
+    }
+    printf("\n");
 }
 
 int main() {
@@ -51,8 +71,4 @@ int main() {
     }
 
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 935d85f (2026-07-29 19:33)
