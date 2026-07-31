@@ -39,52 +39,33 @@ char str[1000010];
 void solve() {
     int n;
     readInt(n);
-
     scanf("%s", str + 1);
-    veci64 dp[6];
-    dp[0].resize(n + 2);//0
-    dp[1].resize(n + 2);//1
-    dp[2].resize(n + 2);//1...10
-    dp[3].resize(n + 2);//0...01
-    dp[4].resize(n + 2);//0...10
-    dp[5].resize(n + 2);//1...01
-    dp[str[1] - '0'][1] = 1;
-    for (int i = 2; i <= n; ++i) {
-        if (str[i] == '0') {
-            dp[0][i] = dp[2][i - 1] + 1;
-            dp[1][i] = dp[0][i - 1] + dp[4][i - 1];
-            dp[2][i] = dp[5][i - 1] + dp[1][i - 1];
-            dp[3][i] = 0;
-            dp[4][i] = dp[3][i - 1];
-            dp[5][i] = 0;
-            if (str[i - 1] == '0') {
-                dp[3][i] += dp[0][i - 2] + dp[4][i - 2];
-                dp[5][i] += dp[2][i - 2];
-            }
+    veci s(n + 2);
+    for (int i = 1; i <= n; ++i) {
+        if (str[i] == '1') {
+            s[i] = s[i-1] + 1;
         } else {
-            dp[0][i] = dp[1][i - 1] + dp[5][i - 1];
-            dp[1][i] = dp[3][i - 1] + 1;
-            dp[2][i] = 0;
-            dp[3][i] = dp[4][i - 1] + dp[0][i - 1];
-            dp[4][i] = 0;
-            dp[5][i] = dp[2][i - 1];
-            if (str[i - 1] == '1') {
-                dp[2][i] += dp[1][i - 2] + dp[5][i - 2];
-                dp[4][i] += dp[3][i - 2];
-            }
+            s[i] = s[i-1] - 1;
         }
     }
+    int cnt[3] = {0, 0, 0};
     i64 ans = 0;
+    cnt[0]++;
     for (int i = 1; i <= n; ++i) {
-        ans += dp[0][i] + dp[1][i];
+        int val = (s[i] % 3 + 3) % 3;
+        ans += cnt[0] + cnt[1] + cnt[2] - cnt[val];
+        cnt[val]++;
     }
-
-    for (int j = 0; j < 6; ++j) {
-        for (int i = 1; i <= n; ++i)
-            printf("%lld ", dp[j][i]);
-        printf("\n");
+    // printf("%lld ", ans);
+    int last = 1;
+    for (itn i = 2; i <= n; ++i) {
+        if (str[i] != str[i - 1]) {
+            int len = i - last + 1;
+            ans -= (len - 1) / 2;
+        } else {
+            last = i;
+        }
     }
-    
     printf("%lld\n", ans);
 }
 
