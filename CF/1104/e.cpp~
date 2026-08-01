@@ -1,0 +1,106 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <climits>
+#include <cmath>
+#include <algorithm>
+#include <functional>
+#include <vector>
+#include <set>
+#include <map>
+
+#define itn int
+typedef long long int64;
+typedef long long i64;
+typedef std::vector<int> veci;
+typedef std::vector<i64> veci64;
+
+#define debug(...) fprintf(stderr, __VA_ARGS__)
+
+template<typename T>
+void readInt(T& x) {
+    static bool f;
+    x = 0;f = false;
+    char c = getchar();
+    for(;c<'0' || c>'9';c=getchar())if(c=='-')f=!f;
+    for(;'0'<=c&&c<='9';c=getchar()) {
+        x = x * 10 + c - '0';
+    }
+    if(f)x = -x;
+}
+template<typename T, typename ...Args>
+void readInt(T& x, Args&... args) {
+    readInt(x);
+    readInt(args...);
+}
+
+bool fill(int st, veci &a, veci &b, std::set<int> &emp, std::set<int> &val) {
+    for (int x = st;; x = a[x]) {
+        if (~b[a[x]]) {
+            if (b[a[x]] != a[b[x]])
+                return false;
+            break;
+        }
+        b[a[x]] = a[b[x]];
+        emp.erase(a[x]);
+        val.erase(a[b[x]]);
+    }
+    return true;
+}
+
+void solve() {
+    int n;
+    readInt(n);
+    veci a(n + 2), b(n + 2);
+    for (int i = 1; i <= n; ++i) {
+        readInt(a[i]);
+    }
+    for (int i = 1; i <= n; ++i) {
+        readInt(b[i]);
+    }
+    std::set<int> emp, val;
+    for (int i = 1; i <= n; ++i) {
+        if (b[i] == -1)
+            emp.emplace(i);
+    }
+    for (int v = 1; v <= n; ++v) {
+        val.emplace(v);
+    }
+    for (int i = 1; i <= n; ++i) {
+        if (~b[i])
+            val.erase(b[i]);
+    }
+    for (int i = 1; i <= n; ++i) {
+        if (~b[i]) {
+            if (!fill(i, a, b, emp, val)) {
+                printf("NO\n");
+                return;
+            }
+        }
+    }
+
+    while (emp.size()) {
+        int x = *emp.begin();
+        int v = *val.begin();
+        emp.erase(x);
+        val.erase(v);
+        b[x] = v;
+        if (!fill(x, a, b, emp, val)) {
+            printf("NO\n");
+            return;
+        }
+    }
+    printf("YES\n");
+    for (int i = 1; i <= n; ++i)
+        printf("%d ", b[i]);
+    printf("\n");
+}
+
+int main() {
+    int T;readInt(T);
+    while(T--) {
+        solve();
+    }
+
+    return 0;
+}
