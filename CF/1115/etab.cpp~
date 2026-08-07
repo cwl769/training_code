@@ -1,0 +1,46 @@
+#include <cstdio>
+int n = 128;
+
+void printBit(int x) {
+    for (int i = 15; i >= 0; --i)
+        putchar('0' + ((x >> i) & 1));
+    putchar(' ');
+}
+
+int main() {
+    int cnt = 0;
+    // for (int b = 1; b <= n; ++b) {
+    //     for (int d = 1; d < b && b + d <= n; ++d) {
+    //         int a = b - d;
+    //         int c = b + d;
+    //         if ((a ^ c) == b) {
+    //             ++cnt;
+    //             if(d&1)
+    //                 printf("%d %d (%d %d %d)\n", b, d, a, b, c);
+    //         }
+    //     }
+    // }
+    // printf("n = %d, cnt = %d\n", n, cnt);
+
+    for (int c = 1; c <= n; ++c) {
+        bool havesol = false;
+        for (int a = 1; a < c; ++a) {
+            int b = a ^ c;
+            if (b - a != c - b)
+                continue;
+            havesol = true;
+            if (1) {
+                printBit(a);
+                printBit(c);
+                printf("%d %d (%d, %d, %d)\n", a, c, a, b, c);
+            }
+        }
+        if (!havesol) {
+            printf("                 ");
+            printBit(c);
+            putchar('\n');
+        }
+    }
+
+    return 0;
+}
