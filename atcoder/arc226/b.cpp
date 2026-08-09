@@ -2,15 +2,20 @@
 #include <cstdlib>
 #include <cstring>
 #include <climits>
+#include <cmath>
 #include <algorithm>
 #include <functional>
 #include <vector>
 #include <set>
 #include <map>
 
+#define itn int
+typedef long long int64;
 typedef long long i64;
 typedef std::vector<int> veci;
 typedef std::vector<i64> veci64;
+
+#define debug(...) fprintf(stderr, __VA_ARGS__)
 
 template<typename T>
 void readInt(T& x) {
@@ -29,51 +34,45 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-const i64 inf = 0x3f3f3f3f3f3f3f3f;
-
-bool check(i64 x, int n, veci64 &a, veci64 &b) {
-    i64 mn = b[1];
-    i64 mx = b[n];
-    for (int i = 1; i <= n; ++i) {
-        if (a[i] != b[i]) {
-            if (a[i] - mn < x && mx - a[i] < x)
-                return false;
+bool check(i64 w, i64 n, i64 m, veci64 a) {
+    i64 rest = w / (1ll << m);
+    rest *= n;
+    for (int i = m - 1; i >= 0; --i) {
+        rest <<= 1;
+        if ((w >> i) & 1)
+            rest += n;
+        if (rest < a[i]) {
+            return false;
+        } else {
+            rest -= a[i];
         }
     }
     return true;
 }
 
 void solve() {
-    int n;
-    readInt(n);
-    veci64 a(n + 2);
-    for (int i = 1; i <= n; ++i) {
+    int n, m;
+    readInt(n, m);
+    veci64 a(m);
+    for (int i = 0; i < m; ++i)
         readInt(a[i]);
-    }
-    veci64 b(n + 2);
-    for (int i = 1; i <= n; ++i) {
-        b[i] = a[i];
-    }
-    std::sort(b.begin() + 1, b.begin() + n + 1);
-    i64 l = 0, r = inf;
+    i64 l = 0, r = 4e18 / n + 1;
     while (l < r) {
-        i64 mid = ((l+r+1)>>1);
-        if (check(mid, n, a, b))
-            l = mid;
+        i64 mid = ((l + r) >> 1);
+        if (check(mid, n, m, a))
+            r = mid;
         else
-            r = mid - 1;
+            l = mid + 1;
     }
-    if (l == inf)
-        printf("-1\n");
-    else
-        printf("%lld\n", l);
+    printf("%lld\n", l);
 }
 
 int main() {
     int T;readInt(T);
-    for(;T;--T) {
+    while(T--) {
         solve();
     }
+    // solve();
 
     return 0;
 }

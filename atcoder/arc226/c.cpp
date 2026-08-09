@@ -2,13 +2,20 @@
 #include <cstdlib>
 #include <cstring>
 #include <climits>
+#include <cmath>
 #include <algorithm>
 #include <functional>
 #include <vector>
 #include <set>
 #include <map>
 
+#define itn int
 typedef long long int64;
+typedef long long i64;
+typedef std::vector<int> veci;
+typedef std::vector<i64> veci64;
+
+#define debug(...) fprintf(stderr, __VA_ARGS__)
 
 template<typename T>
 void readInt(T& x) {
@@ -28,16 +35,24 @@ void readInt(T& x, Args&... args) {
 }
 
 void solve() {
-    int n;
-    readInt(n);
-    veci64 
+    int n, m;
+    readInt(n, m);
+    int ans = (n / 2) * (m / 2);
+    printf("%d\n", ans);
+    for (int i = 1; i + 1 <= n; i += 2) {
+        for (int j = 1; j + 1 <= m; j += 2) {
+            printf("%d %d 1\n", i, j);
+        }
+    }
+    
 }
 
 int main() {
     int T;readInt(T);
-    for(;T;--T) {
+    while(T--) {
         solve();
     }
+    // solve();
 
     return 0;
 }

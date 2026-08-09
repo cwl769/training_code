@@ -2,15 +2,20 @@
 #include <cstdlib>
 #include <cstring>
 #include <climits>
+#include <cmath>
 #include <algorithm>
 #include <functional>
 #include <vector>
 #include <set>
 #include <map>
 
+#define itn int
+typedef long long int64;
 typedef long long i64;
 typedef std::vector<int> veci;
 typedef std::vector<i64> veci64;
+
+#define debug(...) fprintf(stderr, __VA_ARGS__)
 
 template<typename T>
 void readInt(T& x) {
@@ -29,49 +34,33 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
-const i64 inf = 0x3f3f3f3f3f3f3f3f;
-
-bool check(i64 x, int n, veci64 &a, veci64 &b) {
-    i64 mn = b[1];
-    i64 mx = b[n];
-    for (int i = 1; i <= n; ++i) {
-        if (a[i] != b[i]) {
-            if (a[i] - mn < x && mx - a[i] < x)
-                return false;
-        }
-    }
-    return true;
-}
-
 void solve() {
     int n;
     readInt(n);
-    veci64 a(n + 2);
-    for (int i = 1; i <= n; ++i) {
+    veci a(n + 2);
+    for (int i = 1; i <= n; ++i)
         readInt(a[i]);
-    }
-    veci64 b(n + 2);
+    std::vector<veci> pos(n + 2);
+    veci id(n + 2);
     for (int i = 1; i <= n; ++i) {
-        b[i] = a[i];
+        id[i] = (int)pos[a[i]].size();
+        pos[a[i]].emplace_back(i);
     }
-    std::sort(b.begin() + 1, b.begin() + n + 1);
-    i64 l = 0, r = inf;
-    while (l < r) {
-        i64 mid = ((l+r+1)>>1);
-        if (check(mid, n, a, b))
-            l = mid;
-        else
-            r = mid - 1;
+    veci dp(n + 2);
+    for (int i = 1; i <= n; ++i) {
+        dp[i] = dp[i - 1];
+        int val = a[i];
+        if (id[i] - val + 1 < 0)
+            continue;
+        int lf = pos[val][id[i] - val + 1];
+        dp[i] = std::max(dp[i], dp[lf-1] + val);
     }
-    if (l == inf)
-        printf("-1\n");
-    else
-        printf("%lld\n", l);
+    printf("%d\n", dp[n]);
 }
 
 int main() {
     int T;readInt(T);
-    for(;T;--T) {
+    while(T--) {
         solve();
     }
 
