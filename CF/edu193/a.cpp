@@ -2,13 +2,20 @@
 #include <cstdlib>
 #include <cstring>
 #include <climits>
+#include <cmath>
 #include <algorithm>
 #include <functional>
 #include <vector>
 #include <set>
 #include <map>
 
+#define itn int
 typedef long long int64;
+typedef long long i64;
+typedef std::vector<int> veci;
+typedef std::vector<i64> veci64;
+
+#define debug(...) fprintf(stderr, __VA_ARGS__)
 
 template<typename T>
 void readInt(T& x) {
@@ -27,15 +34,30 @@ void readInt(T& x, Args&... args) {
     readInt(args...);
 }
 
+bool is_prime(int x) {
+    if (x == 1)
+        return false;
+    int t = sqrt(x);
+    for (int d = 2; d <= t; ++d) {
+        if (x % d == 0)
+            return false;
+    }
+    return true;
+}
+
 void solve() {
     int n;
     readInt(n);
+    if (is_prime(n + 1))
+        printf("YES\n");
+    else
+        printf("NO\n");
     
 }
 
 int main() {
     int T;readInt(T);
-    for(;T;--T) {
+    while(T--) {
         solve();
     }
 

@@ -35,10 +35,33 @@ void readInt(T& x, Args&... args) {
 }
 
 void solve() {
-    int n, m, k;
-    readInt(n, m, k);
-    
-    
+    int n;
+    readInt(n);
+    veci a(n + 2);
+    for (int i = 1; i <= n; ++i)
+        readInt(a[i]);
+    veci b(n + 2);
+    for (int i = 1; i <= n + 1; ++i)
+        b[i] = (a[i - 1] ^ a[i]);
+    int ans = 0;
+    for (int i = 1; i <= n; ++i)
+        if (b[i])
+            ++ans;
+    int mxd = 0;
+    for (int i = 1; i < n; ++i) {
+        int ori = 0;
+        if (b[i])
+            ++ori;
+        if (b[i + 2])
+            ++ori;
+        int cur = 0;
+        if (b[i] ^ a[i] ^ a[i + 1])
+            ++cur;
+        if (b[i + 2] ^ a[i] ^ a[i + 1])
+            ++cur;
+        mxd = std::max(mxd, cur - ori);
+    }
+    printf("%d\n", ans + mxd);
 }
 
 int main() {

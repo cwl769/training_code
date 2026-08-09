@@ -35,9 +35,40 @@ void readInt(T& x, Args&... args) {
 }
 
 void solve() {
-    int n, m, k;
-    readInt(n, m, k);
+    i64 x, y;
+    readInt(x, y);
+    i64 k = 0;
+    while (((k * k + k) >> 1ll) <= x + y)
+        ++k;
+    --k;
+    i64 sum = (k * k + k) / 2;
+
+    i64 val = 0;
+    if (x + sum - y < 0)
+        val = 0;
+    else
+        val = (x + sum - y) / 2;
+    // printf("%lld %lld %lld %lld\n", sum, x, y, val);
     
+    i64 cur = 0;
+    veci64 ans(k + 2);
+    for (i64 t = k; t >= 1; --t) {
+        if (cur + t < val) {
+            ++ans[k - t + 1];
+            cur += t;
+        } else {
+            i64 nd = val - cur;
+            ++ans[k - nd + 1];
+            break;
+        }
+    }
+    for (int i = 1; i <= k; ++i) {
+        if (ans[i])
+            printf("X");
+        else
+            printf("Y");
+    }
+    printf("\n");
     
 }
 

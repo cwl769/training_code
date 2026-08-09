@@ -30,7 +30,7 @@ void readInt(T& x, Args&... args) {
 void solve() {
     int n;
     readInt(n);
-    
+    veci64 
 }
 
 int main() {

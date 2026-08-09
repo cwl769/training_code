@@ -35,17 +35,42 @@ void readInt(T& x, Args&... args) {
 }
 
 void solve() {
-    int n, m, k;
-    readInt(n, m, k);
-    
+    itn n, q;
+    readInt(n, q);
+    std::map<int, int> map;
+    int cur = 0;
+    while (q--) {
+        int tp;
+        readInt(tp);
+        if (tp == 1) {
+            int x;
+            readInt(x);
+            int val = map[x];
+            cur ^= val;
+            cur ^= val + 1;
+            ++map[x];
+        } else {
+            std::vector<int> del;
+            for (auto &[x, v] : map) {
+                cur ^= v;
+                cur ^= v - 1;
+                --v;
+                if (v == 0)
+                    del.emplace_back(x);
+            }
+            for (auto x : del)
+                map.erase(x);
+        }
+        printf("%d\n", cur);
+    }
     
 }
 
 int main() {
-    int T;readInt(T);
-    while(T--) {
+    //int T;readInt(T);
+    //while(T--) {
         solve();
-    }
+        //}
 
     return 0;
 }
