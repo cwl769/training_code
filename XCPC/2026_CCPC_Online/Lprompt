@@ -1,0 +1,202 @@
+题意描述:
+
+有 $n$ 种程序,编号从 $1$ 到 $n$ , 程序 $k(1 \leq k \leq n)$ 会在 $k, 2k, 3k, \cdots$ 时刻产生一条日志.
+
+有 $m$ 条指令, 指令 $i$ 给出一个区间 $[l_i, r_i](1\leq l_i\leq r_i \leq n)$ , 表示要启动区间内每种程序的一个实例.
+
+系统会记录从 $1$ 到 $n$ 的每个时刻产生日志的程序编号(注意同一时刻如果一种程序有多个实例启动,只会记录一次该程序编号).
+
+每种程序会被赋予一个二进制编码,满足没有任何编码是另一个的前缀,并且使得总长度最小.
+一个时刻的日志长度是指所有在该时刻产生过日志的程序对应的二进制编码长度之和,总长度是 $1$ 到 $n$ 所有时刻日志长度的和.
+
+你需要求出这个最小的总长度是多少?
+
+输入格式:
+
+第一行两个整数 $n$, $m$ $(1 \leq n \leq 10^{10}, 0 \leq m \leq 10^{5})$, 分别表示程序种类数和指令条数,
+接下来 $m$ 行, 每行两个整数 $l_i$, $r_i$, 含义见题意描述.
+
+输出格式:
+
+输出一个整数,表示最小总长度.
+
+样例1:
+input
+```
+5 1
+1 5
+```
+output
+```
+20
+```
+
+样例2:
+input
+```
+6 2
+1 3
+4 6
+```
+output
+```
+32
+```
+
+解释:
+样例一程序记录的日志如下
+时刻1:1 
+时刻2:1 2
+时刻3:1 3
+时刻4:1 2 4
+时刻5:1 5
+
+每个程序分配的二进制编码可以是:
+1 -- 0
+2 -- 10
+3 -- 110
+4 -- 1110
+5 -- 1111
+
+总长度是:(按编码长度乘出现次数计算)
+1 * 5 + 2 * 2 + 3 * 1 + 4 * 1 + 4 * 1 = 20
+可以证明这是最小的总长度.
+
+时间限制: 1000ms
+
+(题意及样例靠回忆得出, 如有错误可告诉我)
+
+我的做法:
+
+首先考虑 n 较小的时候, 可以暴力建huffman树.当然无需实际建出树,可用multiset每次取最小的两个,并把答案加上两个之和,之后将二者之和重新插入multiset.
+
+然后注意到每种程序出现次数为 $\lfloor \frac{n}{k} \rfloor$, 只有 $O(2\sqrt{n})$ 种取值, 于是考虑
+换为map, key为huffman树中的点权,value为该权值出现的次数.
+
+我的代码:
+
+```cpp
+#include <cstdio>
+#include <cstring>
+#include <climits>
+#include <algorithm>
+#include <vector>
+#include <set>
+#include <map>
+typedef long long i64;
+typedef std::vector<int> veci;
+typedef std::vector<i64> veci64;
+
+struct Range {
+	i64 l, r;
+};
+
+bool cmp(const Range& a, const Range& b) {
+	return a.l < b.l;
+}
+
+i64 getcnt(const std::set<std::pair<i64, i64> >& setrg, i64 ql, i64 qr) {
+	auto itl = setrg.lower_bound({ql, 0});
+	if(itl != setrg.begin())
+		--itl;
+	i64 ans = 0;
+	for(auto it = itl; it != setrg.end(); ++it) {
+		i64 l = it->first;
+		i64 r = it->second;
+		if(l > qr)
+			break;
+		l = std::max(l, ql);
+		r = std::min(r, qr);
+		if(l <= r)
+			ans += r - l + 1;
+	}
+	return ans;
+}
+
+int main() {
+	i64 n;int m;scanf("%lld%d", &n, &m);
+	std::vector<Range> range(m);
+	for (int i = 0; i < m; ++i)
+		scanf("%lld%lld", &range[i].l, &range[i].r);
+		
+	if(n == 1) {
+		if(m) {
+			printf("1\n");
+		} else {
+			printf("0\n");
+		}
+		return 0;
+	}
+	
+	std::set<std::pair<i64, i64> > setrg;
+	std::sort(range.begin(), range.end(), cmp);
+	i64 curl = LLONG_MIN, curr = LLONG_MIN;
+	for (auto rg : range) {
+		i64 l = rg.l;
+		i64 r = rg.r;
+		if(l - 1 > curr) {
+			if(curl != LLONG_MIN) {
+				setrg.insert({curl, curr});
+			}
+			curl = l;
+			curr = r;
+		} else {
+			curr = std::max(curr, r);
+		}
+	}
+	setrg.insert({curl, curr});
+	
+	std::map<i64, i64> set;
+	//(val, cnt)
+	
+	for(i64 l = 1, r; l <= n; l = r + 1) {
+		r = (n / (n / l));
+		i64 val = (n) / l;
+		i64 cnt = getcnt(setrg, l, r);
+		if(cnt)set.insert({val, cnt});
+		// printf("add %lld %lld\n", val, cnt);
+	}
+	
+	i64 ans = 0;
+	while(set.size() && (set.size() >= 2 || set.begin()->second > 1)) {
+		i64 val = set.begin()->first;
+		i64 cnt = set.begin()->second;
+		set.erase(set.begin());
+		if(cnt == 0) {
+			continue;
+		} else if(cnt == 1) {
+			i64 val2 = set.begin()->first;
+			i64 cnt2 = set.begin()->second;
+			set.erase(set.begin());
+			if(cnt2 > 1)set.insert({val2, cnt2 - 1});
+			ans += val + val2;
+			// set.insert({val + val2, 1});
+			set[val + val2] += 1;
+		} else if(cnt & 1) {
+			ans += val * (cnt - 1);
+			// set.insert({val, 1});
+			// set.insert({val * 2, cnt / 2});
+			set[val] += 1;
+			set[val * 2] += cnt / 2;
+		} else {
+			ans += val * cnt;
+			// set.insert({val * 2, cnt / 2});
+			set[val * 2] += cnt / 2;
+		}
+		// printf("%lld %lld ans:%lld\n", val, cnt, ans);
+		// for(auto [val, cnt] : set) {
+		// 	printf("{%lld, %lld} ", val, cnt);
+		// }
+		// printf("\n");
+	}
+	printf("%lld\n", ans);
+	
+	return 0;
+}
+```
+
+你需要回答以下问题:
+
+1. 代码是否有错误
+2. 该做法的时间复杂度是否正确, 如果错误, 给出hack数据.
+3. 答案是否会超过64位有符号整数能表示的范围, 即是否需要int128
