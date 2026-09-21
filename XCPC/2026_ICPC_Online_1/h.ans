@@ -1,0 +1,12 @@
+--------------new query--------------
+check(3), sum = 7
+check(2), sum = 3
+3
+--------------new query--------------
+check(3), sum = 8
+check(4), sum = 13
+4
+--------------new query--------------
+check(3), sum = 0
+check(4), sum = 0
+-1
