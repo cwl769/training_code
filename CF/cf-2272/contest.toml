@@ -1,0 +1,74 @@
+name = "Codeforces Round 1130 (Div. 2)"
+source = "competitive-companion"
+url = "https://codeforces.com/contest/2272"
+
+[judge]
+compile = "g++ -std=c++23 -Wall -Wextra -o {bin} {src}"
+run = "{bin}"
+
+[problems.A]
+dir = ".A"
+file = "a.cpp"
+memory_limit_mb = 256
+name = "A. Maximize One MEX"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2272/problem/A"
+
+[problems.B]
+dir = ".B"
+file = "b.cpp"
+memory_limit_mb = 256
+name = "B. Frogs Jump"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2272/problem/B"
+
+[problems.C]
+dir = ".C"
+file = "c.cpp"
+memory_limit_mb = 256
+name = "C. Yet Another Black Cell Problem"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2272/problem/C"
+
+[problems.D]
+dir = ".D"
+file = "d.cpp"
+memory_limit_mb = 256
+name = "D. Connecting the Conflicts"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2272/problem/D"
+
+[problems.E]
+dir = ".E"
+file = "e.cpp"
+memory_limit_mb = 256
+name = "E. Memory Cell Interception"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2272/problem/E"
+
+[problems.F]
+dir = ".F"
+file = "f.cpp"
+memory_limit_mb = 512
+name = "F. Tree Reduction Game"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2272/problem/F"
+
+[problems.G]
+dir = ".G"
+file = "g.cpp"
+memory_limit_mb = 512
+name = "G. Ranges"
+test_type = "single"
+time_limit_ms = 5000
+url = "https://codeforces.com/contest/2272/problem/G"
+
+[submit]
+language = "cpp23"
+program_type_id = 91

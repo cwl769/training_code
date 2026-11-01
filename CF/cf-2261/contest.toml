@@ -1,0 +1,101 @@
+name = "WorldQuant Round 1 (Codeforces Round 1128, Div. 1 + Div. 2)"
+source = "competitive-companion"
+url = "https://codeforces.com/contest/2261"
+
+[judge]
+compile = "g++ -std=c++23 -Wall -Wextra -o {bin} {src}"
+run = "{bin}"
+
+[problems.A]
+dir = ".A"
+file = "a.cpp"
+memory_limit_mb = 256
+name = "A. Hey, It's Me, Souvlakity"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2261/problem/A"
+
+[problems.B]
+dir = ".B"
+file = "b.cpp"
+memory_limit_mb = 256
+name = "B. What's the Capital of France?"
+test_type = "single"
+time_limit_ms = 1500
+url = "https://codeforces.com/contest/2261/problem/B"
+
+[problems.C]
+dir = ".C"
+file = "c.cpp"
+memory_limit_mb = 256
+name = "C. I Know About a Million Things"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2261/problem/C"
+
+[problems.D1]
+dir = ".D1"
+file = "d1.cpp"
+memory_limit_mb = 256
+name = "D1. Come Be My Friend, Don't Be So Scared (Easy Version)"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2261/problem/D1"
+
+[problems.D2]
+dir = ".D2"
+file = "d2.cpp"
+memory_limit_mb = 256
+name = "D2. Come Be My Friend, Don't Be So Scared (Hard Version)"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2261/problem/D2"
+
+[problems.E]
+dir = ".E"
+file = "e.cpp"
+memory_limit_mb = 256
+name = "E. What Does the Cow Say?"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2261/problem/E"
+
+[problems.F1]
+dir = ".F1"
+file = "f1.cpp"
+memory_limit_mb = 256
+name = "F1. Plegma II: Ask Me Any Cell (Easy Version)"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2261/problem/F1"
+
+[problems.F2]
+dir = ".F2"
+file = "f2.cpp"
+memory_limit_mb = 256
+name = "F2. Plegma II: Ask Me Any Cell (Hard Version)"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2261/problem/F2"
+
+[problems.G]
+dir = ".G"
+file = "g.cpp"
+memory_limit_mb = 1024
+name = "G. 1 2 3 and XOR, Where Did Everybody Go?"
+test_type = "single"
+time_limit_ms = 7000
+url = "https://codeforces.com/contest/2261/problem/G"
+
+[problems.H]
+dir = ".H"
+file = "h.cpp"
+memory_limit_mb = 512
+name = "H. Oh Tree Tree Tree, No Need to Leave"
+test_type = "single"
+time_limit_ms = 3000
+url = "https://codeforces.com/contest/2261/problem/H"
+
+[submit]
+language = "cpp23"
+program_type_id = 91

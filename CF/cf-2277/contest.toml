@@ -1,0 +1,75 @@
+name = "Codeforces Round 1129 (Div. 2)"
+source = "competitive-companion"
+url = "https://codeforces.com/contest/2277"
+
+[judge]
+compile = "g++ -std=c++23 -Wall -Wextra -o {bin} {src}"
+run = "{bin}"
+
+[problems.A]
+dir = ".A"
+file = "a.cpp"
+memory_limit_mb = 256
+name = "A. Subset Selecting"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2277/problem/A"
+
+[problems.B]
+dir = ".B"
+file = "b.cpp"
+memory_limit_mb = 256
+name = "B. Sequence Decreasing"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2277/problem/B"
+
+[problems.C]
+dir = ".C"
+file = "c.cpp"
+memory_limit_mb = 256
+name = "C. Edge Addeleting"
+test_type = "single"
+time_limit_ms = 3000
+url = "https://codeforces.com/contest/2277/problem/C"
+
+[problems.D1]
+dir = ".D1"
+file = "d1.cpp"
+memory_limit_mb = 256
+name = "D1. Number Operating (Easy Version)"
+test_type = "single"
+time_limit_ms = 3000
+url = "https://codeforces.com/contest/2277/problem/D1"
+
+[problems.D2]
+dir = ".D2"
+file = "d2.cpp"
+memory_limit_mb = 256
+name = "D2. Number Operating (Hard Version)"
+test_type = "single"
+time_limit_ms = 3000
+url = "https://codeforces.com/contest/2277/problem/D2"
+
+[problems.E]
+dir = ".E"
+file = "e.cpp"
+interactive = true
+memory_limit_mb = 256
+name = "E. Tree Guessing"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2277/problem/E"
+
+[problems.F]
+dir = ".F"
+file = "f.cpp"
+memory_limit_mb = 256
+name = "F. Token Re-Moving"
+test_type = "single"
+time_limit_ms = 4000
+url = "https://codeforces.com/contest/2277/problem/F"
+
+[submit]
+language = "cpp23"
+program_type_id = 91
