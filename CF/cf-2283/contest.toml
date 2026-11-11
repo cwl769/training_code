@@ -1,0 +1,74 @@
+name = "Educational Codeforces Round 196 (Rated for Div. 2)"
+source = "competitive-companion"
+url = "https://codeforces.com/contest/2283"
+
+[judge]
+compile = "g++ -std=c++23 -Wall -Wextra -o {bin} {src}"
+run = "{bin}"
+
+[problems.A]
+dir = ".A"
+file = "a.cpp"
+memory_limit_mb = 512
+name = "A. Numbers on the Board"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2283/problem/A"
+
+[problems.B]
+dir = ".B"
+file = "b.cpp"
+memory_limit_mb = 512
+name = "B. Rhythmic String"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2283/problem/B"
+
+[problems.C]
+dir = ".C"
+file = "c.cpp"
+memory_limit_mb = 512
+name = "C. Big XOR"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2283/problem/C"
+
+[problems.D]
+dir = ".D"
+file = "d.cpp"
+memory_limit_mb = 512
+name = "D. Black, Gray and White"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2283/problem/D"
+
+[problems.E]
+dir = ".E"
+file = "e.cpp"
+memory_limit_mb = 512
+name = "E. Partition of a Binary String"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2283/problem/E"
+
+[problems.F]
+dir = ".F"
+file = "f.cpp"
+memory_limit_mb = 512
+name = "F. Minimize the Graph"
+test_type = "single"
+time_limit_ms = 3000
+url = "https://codeforces.com/contest/2283/problem/F"
+
+[problems.G]
+dir = ".G"
+file = "g.cpp"
+memory_limit_mb = 512
+name = "G. Order Statistics on the Graph"
+test_type = "single"
+time_limit_ms = 7000
+url = "https://codeforces.com/contest/2283/problem/G"
+
+[submit]
+language = "cpp23"
+program_type_id = 91

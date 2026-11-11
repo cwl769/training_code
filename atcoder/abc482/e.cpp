@@ -109,10 +109,20 @@ void solve() {
         }
         printf("%lld\n", ans);
     } else {
-        int rt = 0;
+        int b = 0;
         for (int i = 1; i <= n; ++i)
-            if(dep[i] - 1 == dia / 2)
-                rt = i;
+            if(dep[i] - 1 == dia)
+                b = i;
+        dfs1(b, 0, g, dep);
+        int rt = a;
+        while(dep[rt] > dia / 2 + 1) {
+            int fa = 0;
+            for(auto y : g[rt])
+                if(dep[y] + 1 == dep[rt])
+                    fa = y;
+            rt = fa;
+        }
+
         dep[rt] = 0;
         veci cnt(n + 2);
         i64 ans = 0;

@@ -1,0 +1,84 @@
+name = "Codeforces Round 1132 (Div. 2)"
+source = "competitive-companion"
+url = "https://codeforces.com/contest/2284"
+
+[judge]
+compile = "g++ -std=c++23 -Wall -Wextra -o {bin} {src}"
+run = "{bin}"
+
+[problems.A1]
+dir = ".A1"
+file = "a1.cpp"
+memory_limit_mb = 256
+name = "A1. 15K4JR3B (Easy Version)"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2284/problem/A1"
+
+[problems.A2]
+dir = ".A2"
+file = "a2.cpp"
+memory_limit_mb = 256
+name = "A2. 15K4JR3B (Hard Version)"
+test_type = "single"
+time_limit_ms = 1000
+url = "https://codeforces.com/contest/2284/problem/A2"
+
+[problems.B]
+dir = ".B"
+file = "b.cpp"
+memory_limit_mb = 256
+name = "B. Introduction to the Niche Internet"
+test_type = "single"
+time_limit_ms = 1500
+url = "https://codeforces.com/contest/2284/problem/B"
+
+[problems.C1]
+dir = ".C1"
+file = "c1.cpp"
+memory_limit_mb = 256
+name = "C1. Disgusting + GCD (Constructive Version)"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2284/problem/C1"
+
+[problems.C2]
+dir = ".C2"
+file = "c2.cpp"
+memory_limit_mb = 256
+name = "C2. Disgusting + GCD (Checker Version)"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2284/problem/C2"
+
+[problems.D]
+dir = ".D"
+file = "d.cpp"
+memory_limit_mb = 256
+name = "D. The Theorem of Two Cans"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2284/problem/D"
+
+[problems.E]
+dir = ".E"
+file = "e.cpp"
+interactive = true
+memory_limit_mb = 256
+name = "E. My Mind Is Going"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2284/problem/E"
+
+[problems.F]
+dir = ".F"
+file = "f.cpp"
+memory_limit_mb = 256
+name = "F. Fun Times"
+test_type = "single"
+time_limit_ms = 2000
+url = "https://codeforces.com/contest/2284/problem/F"
+
+[submit]
+language = "cpp23"
+program_type_id = 91
